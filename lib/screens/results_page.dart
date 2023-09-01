@@ -2,9 +2,14 @@ import 'package:bmi_calculator/components/bottom_button.dart';
 import 'package:bmi_calculator/components/reusable_card.dart';
 import 'package:bmi_calculator/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:bmi_calculator/calculator_brain.dart';
 
 class ResultPage extends StatelessWidget {
-  const ResultPage({super.key});
+  final String bmiResult;
+  final String interpretation;
+  final String resultText;
+
+  ResultPage({required this.bmiResult, required this.interpretation, required this.resultText});
 
   @override
   Widget build(BuildContext context) {
@@ -35,15 +40,15 @@ class ResultPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Normal',
+                    resultText.toUpperCase(),
                     style: kResultTextStyle,
                   ),
                   Text(
-                    '18.3',
+                    bmiResult,
                     style: kBmiTextStyle,
                   ),
                   Text(
-                    'Your result',
+                    interpretation,
                     style: kBodyTextStyle,
                     textAlign: TextAlign.center,
                   ),
