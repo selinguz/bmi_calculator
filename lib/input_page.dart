@@ -1,3 +1,4 @@
+import 'package:bmi_calculator/results_page.dart';
 import 'package:bmi_calculator/reusable_card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -160,12 +161,12 @@ class _InputPageState extends State<InputPage> {
                             RoundIconButton(
                               onPressed: () {
                                 setState(() {
-                                  if(weight>0){
+                                  if (weight > 0) {
                                     weight--;
+                                  } else if (weight == 0) {
+                                    weight = 0;
                                   }
-                                  else if(weight==0){
-                                    weight=0;
-                                  };
+                                  ;
                                 });
                               },
                               icon: FontAwesomeIcons.minus,
@@ -228,14 +229,28 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            alignment: Alignment.center,
-            color: kBottomContainerColor,
-            height: kBottomContainerHeight,
-            width: double.infinity,
-            margin: EdgeInsets.only(top: 10.0),
-            child: Text('CALCULATE YOUR BMI',style: TextStyle(color: Colors
-                .white,fontSize: 20),),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ResultPage(),
+                  ),
+                );
+              });
+            },
+            child: Container(
+              alignment: Alignment.center,
+              color: kBottomContainerColor,
+              height: kBottomContainerHeight,
+              width: double.infinity,
+              margin: EdgeInsets.only(top: 10.0),
+              child: Text(
+                'CALCULATE',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
           ),
         ],
       ),
