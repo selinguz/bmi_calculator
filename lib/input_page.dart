@@ -19,9 +19,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
   int height = 180;
-
-  //Color maleCardColor = inactiveCardColor;
-  //Color femaleCardColor = inactiveCardColor;
+  int weight = 60;
+  int age = 19;
 
   @override
   Widget build(BuildContext context) {
@@ -103,10 +102,10 @@ class _InputPageState extends State<InputPage> {
                           data: SliderTheme.of(context).copyWith(
                             activeTrackColor: Color(0xFFEB1555),
                             inactiveTrackColor: Color(0xFF8D8E98),
-                            thumbShape: RoundSliderThumbShape
-                              (enabledThumbRadius: 16.0),
-                            overlayShape: RoundSliderOverlayShape
-                              (overlayRadius: 30.0),
+                            thumbShape:
+                                RoundSliderThumbShape(enabledThumbRadius: 16.0),
+                            overlayShape:
+                                RoundSliderOverlayShape(overlayRadius: 30.0),
                             overlayColor: Color(0x29EB1555),
                             thumbColor: Color(0xFFEB1555),
                           ),
@@ -132,22 +131,136 @@ class _InputPageState extends State<InputPage> {
             child: Row(
               children: [
                 Expanded(
-                  child: ReusableCard(colour: kActiveCardColor, onPress: () {}),
+                  child: ReusableCard(
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'WEIGHT',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          weight.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  weight++;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundIconButton(
+                              onPressed: () {
+                                setState(() {
+                                  if(weight>0){
+                                    weight--;
+                                  }
+                                  else if(weight==0){
+                                    weight=0;
+                                  };
+                                });
+                              },
+                              icon: FontAwesomeIcons.minus,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    colour: kActiveCardColor,
+                    onPress: () {},
+                  ),
                 ),
                 Expanded(
-                  child: ReusableCard(colour: kActiveCardColor, onPress: () {}),
+                  child: ReusableCard(
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'AGE',
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kNumberTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.plus,
+                              onPressed: () {
+                                setState(() {
+                                  age++;
+                                });
+                              },
+                            ),
+                            SizedBox(
+                              width: 10.0,
+                            ),
+                            RoundIconButton(
+                              icon: FontAwesomeIcons.minus,
+                              onPressed: () {
+                                setState(() {
+                                  if (age > 0) {
+                                    age--;
+                                  } else if (age == 0) {
+                                    age = 0;
+                                  }
+                                });
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    colour: kActiveCardColor,
+                    onPress: () {},
+                  ),
                 ),
               ],
             ),
           ),
           Container(
+            alignment: Alignment.center,
             color: kBottomContainerColor,
             height: kBottomContainerHeight,
             width: double.infinity,
             margin: EdgeInsets.only(top: 10.0),
+            child: Text('CALCULATE YOUR BMI',style: TextStyle(color: Colors
+                .white,fontSize: 20),),
           ),
         ],
       ),
+    );
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  final IconData icon;
+  final Function onPressed;
+
+  const RoundIconButton(
+      {super.key, required this.icon, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      onPressed: () {
+        onPressed();
+      },
+      shape: CircleBorder(),
+      child: Icon(icon),
+      constraints: BoxConstraints.tightFor(width: 56.0, height: 56.0),
+      fillColor: Color(0xFF4C4F5E),
+      elevation: 6.0,
     );
   }
 }
